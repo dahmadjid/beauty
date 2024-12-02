@@ -6,8 +6,8 @@ set(VERSION 1.0.4)
 project(Beauty LANGUAGES CXX VERSION ${VERSION})
 
 option(BEAUTY_ENABLE_OPENSSL "Enable OpenSSL support" OFF)
-option(BEAUTY_BUILD_EXAMPLES "Build examples" ON)
-option(BUILD_TESTING "Build tests" ON)
+option(BEAUTY_BUILD_EXAMPLES "Build examples" OFF)
+option(BUILD_TESTING "Build tests" OFF)
 
 find_package(Boost CONFIG REQUIRED)
 if (BEAUTY_ENABLE_OPENSSL)
