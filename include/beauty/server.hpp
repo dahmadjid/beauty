@@ -37,6 +37,11 @@ public:
         server_route& post(const route_info& route_info, route_cb&& cb)
         {  _server.post(_path, route_info, std::move(cb)); return *this; }
 
+        server_route& patch(route_cb&& cb) { _server.patch(_path, std::move(cb)); return *this; };
+        server_route& patch(const route_info& route_info, route_cb&& cb)
+        {  _server.patch(_path, route_info, std::move(cb)); return *this; }
+
+
         server_route& options(route_cb&& cb) { _server.options(_path, std::move(cb)); return *this; };
         server_route& options(const route_info& route_info, route_cb&& cb)
         {  _server.options(_path, route_info, std::move(cb)); return *this; }
@@ -80,6 +85,8 @@ public:
     server& put(const std::string& path, const route_info& route_info, route_cb&& cb);
     server& post(const std::string& path, route_cb&& cb);
     server& post(const std::string& path, const route_info& route_info, route_cb&& cb);
+    server& patch(const std::string& path, route_cb&& cb);
+    server& patch(const std::string& path, const route_info& route_info, route_cb&& cb);
     server& options(const std::string& path, route_cb&& cb);
     server& options(const std::string& path, const route_info& route_info, route_cb&& cb);
     server& del(const std::string& path, route_cb&& cb);
