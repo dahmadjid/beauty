@@ -4,6 +4,9 @@
 #include <beauty/export.hpp>
 
 #include <boost/beast.hpp>
+#include <boost/beast/http/field.hpp>
+#include <optional>
+#include <unordered_map>
 
 namespace beast = boost::beast;
 
@@ -23,6 +26,8 @@ public:
     routes::const_iterator begin() const noexcept { return _routes.begin(); }
     routes::const_iterator end() const noexcept { return _routes.end(); }
 
+    std::optional<route_cb> post_routing_handler;
+    std::unordered_map<http::field, std::string> default_headers;
 private:
     routes      _routes;
 };

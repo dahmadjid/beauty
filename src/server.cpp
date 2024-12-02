@@ -191,7 +191,8 @@ server::enable_swagger(const char* swagger_entrypoint)
                     for (const auto& param : route.route_info().route_parameters) {
                         parameters.push_back(boost::json::object{
                             {"name",        param.name},
-                            {"in",          param.in},
+                       // --------------------------------------------------------------------------
+     {"in",          param.in},
                             {"description", param.description},
                             {"required",    param.required},
                             {"schema", {
@@ -216,6 +217,16 @@ server::enable_swagger(const char* swagger_entrypoint)
         response.set(beauty::content_type::application_json);
         response.body() = std::move(body);
     });
+}
+
+// --------------------------------------------------------------------------
+void server::set_default_headers(const std::unordered_map<http::field, std::string>& default_headers) {
+    _router.default_headers = default_headers;
+}
+
+// --------------------------------------------------------------------------
+void server::set_post_routing_handler(route_cb&& cb) {
+    _router.post_routing_handler = cb;
 }
 
 }

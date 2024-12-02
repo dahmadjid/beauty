@@ -253,20 +253,46 @@ private:
                         res->keep_alive(_request.keep_alive());
 
                         route.execute(_request, *res); // Call the route user handler
-
+                        for (const auto& [key, value]: _router.default_headers) {
+                            res->set_header(key, value);
+                        }
+                        if (_router.post_routing_handler) {
+                            _router.post_routing_handler.value()(_request, *res);
+                        }
                         return res;
                     }
                 }
                 catch(const beauty::exception& ex) {
-                    return ex.create_response(_request);
+                    auto res = ex.create_response(_request);
+                    for (const auto& [key, value]: _router.default_headers) {
+                        res->set_header(key, value);
+                    }
+                    if (_router.post_routing_handler) {
+                        _router.post_routing_handler.value()(_request, *res);
+                    }
+                    return res;
                 }
                 catch(const std::exception& ex) {
-                    return helper::server_error(_request, ex.what());
+                    auto res = helper::server_error(_request, ex.what());
+                    for (const auto& [key, value]: _router.default_headers) {
+                        res->set_header(key, value);
+                    }
+                    if (_router.post_routing_handler) {
+                        _router.post_routing_handler.value()(_request, *res);
+                    }
+                    return res;
                 }
             }
         }
 
-        return helper::not_found(_request);
+        auto res = helper::not_found(_request);
+        for (const auto& [key, value]: _router.default_headers) {
+            res->set_header(key, value);
+        }
+        if (_router.post_routing_handler) {
+            _router.post_routing_handler.value()(_request, *res);
+        }
+        return res;
     }
 };
 

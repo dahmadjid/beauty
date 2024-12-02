@@ -9,6 +9,7 @@
 #include <beauty/export.hpp>
 
 #include <string>
+#include <unordered_map>
 
 namespace beauty
 {
@@ -100,7 +101,9 @@ public:
     void info(const beauty::server_info& info) { _server_info = info; }
 
     void enable_swagger(const char* swagger_entrypoint = "/swagger");
-
+    void set_default_headers(const std::unordered_map<http::field, std::string>& default_headers);
+    void set_post_routing_handler(route_cb&& cb);
+    
 private:
     beauty::application&    _app;
     int                     _concurrency{1};

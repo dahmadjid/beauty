@@ -6,3 +6,4 @@ CMakeUserPresets.json
 venv
 graph_info.json
 conanbuildinfo.txt
+.cache
