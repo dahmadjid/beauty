@@ -1,17 +1,16 @@
 #pragma once
 
-#include <beauty/route.hpp>
 #include <beauty/export.hpp>
-
+#include <beauty/route.hpp>
 #include <boost/beast.hpp>
 #include <boost/beast/http/field.hpp>
+#include <exception>
 #include <optional>
 #include <unordered_map>
 
 namespace beast = boost::beast;
 
-namespace beauty
-{
+namespace beauty {
 // --------------------------------------------------------------------------
 class BEAUTY_EXPORT router {
 public:
@@ -23,13 +22,21 @@ public:
         return _routes.find(v);
     }
 
-    routes::const_iterator begin() const noexcept { return _routes.begin(); }
-    routes::const_iterator end() const noexcept { return _routes.end(); }
+    routes::const_iterator begin() const noexcept {
+        return _routes.begin();
+    }
+
+    routes::const_iterator end() const noexcept {
+        return _routes.end();
+    }
 
     std::optional<route_cb> post_routing_handler;
     std::unordered_map<http::field, std::string> default_headers;
+    std::optional<std::function<void(const beauty::request& req, beauty::response& res, std::exception_ptr exc_ptr)>>
+        exception_handler;
+
 private:
-    routes      _routes;
+    routes _routes;
 };
 
-}
+}  // namespace beauty

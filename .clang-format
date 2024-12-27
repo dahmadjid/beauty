@@ -1,0 +1,28 @@
+BasedOnStyle: Google
+IndentWidth: 4  
+AlignAfterOpenBracket: BlockIndent
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+SeparateDefinitionBlocks: Always
+IndentAccessModifiers: false
+AccessModifierOffset: -4
+DerivePointerAlignment: false
+PointerAlignment: Left
+ColumnLimit: 120
+ConstructorInitializerIndentWidth: 8
+ContinuationIndentWidth: 4
+Cpp11BracedListStyle: false
+InsertBraces: true 
+IncludeCategories:
+  - Regex:           '".*"'
+    Priority:        1
+  - Regex:           '^<.*\.h>'
+    Priority:        2
+  - Regex:           '^<.*'
+    Priority:        3
+
+Language:        Cpp
+Standard:        c++20
+BreakBeforeBraces: Custom
+BraceWrapping:
+      AfterControlStatement: MultiLine
