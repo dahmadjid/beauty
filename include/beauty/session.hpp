@@ -204,6 +204,7 @@ private:
         // Make sure we can handle the method
         _request = _request_parser->release();
         _request.remote(_socket.remote_endpoint());
+        _request.timestamp = std::chrono::high_resolution_clock::now();
 
         _is_websocket = (beast::websocket::is_upgrade(_request));
         // std::cout << "session: handle " << (_is_websocket ? "websocket" :
